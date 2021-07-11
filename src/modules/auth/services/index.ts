@@ -1,3 +1,2 @@
-import {RefreshSessionService} from "./refresh-session.service";
-
-export {RefreshSessionService};
+export {RefreshSessionService} from "./refresh-session.service";
+export {AuthService} from "./auth.service";

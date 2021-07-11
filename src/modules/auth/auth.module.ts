@@ -6,7 +6,7 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {UserModule} from "@modules/user";
 import {IsAuthorizedGuard} from "./guards";
 import {RefreshSession} from "./entities";
-import {RefreshSessionService} from "./services";
+import {RefreshSessionService, AuthService} from "./services";
 import {AuthMiddleware} from "./middlewares";
 import {AuthController} from "./auth.controller";
 
@@ -25,7 +25,7 @@ import {AuthController} from "./auth.controller";
     }),
     TypeOrmModule.forFeature([RefreshSession])
   ],
-  providers: [AuthMiddleware, RefreshSessionService, IsAuthorizedGuard],
+  providers: [AuthMiddleware, RefreshSessionService, IsAuthorizedGuard, AuthService],
   controllers: [AuthController],
   exports: [IsAuthorizedGuard, AuthMiddleware, JwtModule, UserModule]
 })

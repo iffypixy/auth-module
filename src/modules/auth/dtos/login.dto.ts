@@ -2,9 +2,9 @@ import {IsString} from "class-validator";
 
 export class LoginDto {
   @IsString({
-    message: "Login must be a string"
+    message: "Username must be a string"
   })
-  login: string;
+  username: string;
 
   @IsString({
     message: "Password must be a string"

@@ -1,33 +1,27 @@
 import {Injectable, NestMiddleware} from "@nestjs/common";
 import {NextFunction, Response} from "express";
-import {JwtService} from "@nestjs/jwt";
-import {ConfigService} from "@nestjs/config";
 
-import {ExtendedRequest} from "@lib/interfaces";
 import {UserService} from "@modules/user";
+import {ExtendedRequest} from "@lib/interfaces";
+import {AuthService} from "../services";
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(
-    private readonly jwtService: JwtService,
+    private readonly authService: AuthService,
     private readonly userService: UserService,
-    private readonly configService: ConfigService
   ) {
   }
 
   async use(req: ExtendedRequest, res: Response, next: NextFunction): Promise<void> {
     const token: string = req.cookies["access-token"];
 
-    try {
-      const {userId: id} = await this.jwtService.verifyAsync(token, {
-        secret: this.configService.get<string>("jwt.secret")
-      });
+    const user = await this.authService.findUserByAccessToken(token);
 
-      req.user = await this.userService.findOne({id});
+    if (user) req.user = await this.userService.save({
+      ...user, lastSeen: new Date(),
+    });
 
-      next();
-    } catch (e) {
-      next();
-    }
+    next();
   }
 }

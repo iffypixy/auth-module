@@ -8,7 +8,8 @@ export class RefreshSession {
   id: string;
 
   @ManyToOne(() => User, {
-    nullable: false
+    nullable: false,
+    eager: true
   })
   user: User;
 

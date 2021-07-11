@@ -1,6 +1,6 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository, FindConditions, FindOneOptions, DeepPartial} from "typeorm";
+import {Repository, FindOneOptions, DeepPartial, SaveOptions} from "typeorm";
 
 import {User} from "../entities";
 
@@ -12,13 +12,17 @@ export class UserService {
   ) {
   }
 
-  findOne(conditions?: FindConditions<User>, options?: FindOneOptions<User>): Promise<User> {
-    return this.userRepository.findOne(conditions, options);
+  findOne(options: FindOneOptions<User>): Promise<User> {
+    return this.userRepository.findOne(options);
   }
 
-  create(options: DeepPartial<User>): Promise<User> {
-    const user = this.userRepository.create(options);
+  create(partial: DeepPartial<User>): Promise<User> {
+    const user = this.userRepository.create(partial);
 
     return this.userRepository.save(user);
+  }
+
+  save(entity: DeepPartial<User>, options?: SaveOptions): Promise<User> {
+    return this.userRepository.save(entity, options);
   }
 }

@@ -13,21 +13,17 @@ export class RefreshSessionService {
   ) {
   }
 
-  create(options: DeepPartial<RefreshSession>): Promise<RefreshSession> {
-    const session = this.refreshSessionRepository.create(options);
+  create(partial: DeepPartial<RefreshSession>): Promise<RefreshSession> {
+    const session = this.refreshSessionRepository.create(partial);
 
     return this.refreshSessionRepository.save(session);
   }
 
-  remove(entity: RefreshSession): Promise<RefreshSession> {
-    return this.refreshSessionRepository.remove(entity);
-  }
-
-  delete(criteria): Promise<DeleteResult> {
+  delete(criteria: FindConditions<RefreshSession>): Promise<DeleteResult> {
     return this.refreshSessionRepository.delete(criteria);
   }
 
-  findOne(conditions?: FindConditions<RefreshSession>, options?: FindOneOptions<RefreshSession>): Promise<RefreshSession> {
-    return this.refreshSessionRepository.findOne(conditions, options);
+  findOne(options: FindOneOptions<RefreshSession>): Promise<RefreshSession> {
+    return this.refreshSessionRepository.findOne(options);
   }
 }

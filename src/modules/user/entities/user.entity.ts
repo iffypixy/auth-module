@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm";
 
 import {UserPublicData} from "../interfaces";
 
@@ -10,24 +10,16 @@ export class User {
   @Column({
     type: "varchar",
     nullable: false,
-    length: 50,
-  })
-  firstName: string;
-
-  @Column({
-    type: "varchar",
-    nullable: false,
-    length: 50,
-  })
-  lastName: string;
-
-  @Column({
-    type: "varchar",
-    nullable: false,
     unique: true,
     length: 25,
   })
-  login: string;
+  username: string;
+
+  @Column({
+    type: "timestamp",
+    nullable: false
+  })
+  lastSeen: Date;
 
   @Column({
     type: "varchar",
@@ -36,11 +28,14 @@ export class User {
   })
   password: string;
 
+  @CreateDateColumn()
+  createdAt: Date;
+
   get public(): UserPublicData {
-    const {id, firstName, lastName, login} = this;
+    const {id, username} = this;
 
     return {
-      id, firstName, lastName, login
+      id, username
     };
   }
 }

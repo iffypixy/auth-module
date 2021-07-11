@@ -1,3 +1,2 @@
-import {IsAuthorizedGuard} from "./is-authorized.guard";
+export {IsAuthorizedGuard} from "./is-authorized.guard";
 
-export {IsAuthorizedGuard};
