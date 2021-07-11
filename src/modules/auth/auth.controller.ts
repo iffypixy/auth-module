@@ -2,7 +2,7 @@ import {BadRequestException, Body, Controller, Get, HttpCode, Post, Req, Res, Us
 import {JwtService} from "@nestjs/jwt";
 import {ConfigService} from "@nestjs/config";
 import {Response, Request, CookieOptions} from "express";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import {v4} from "uuid";
 
 import {User, UserService, UserPublicData} from "@modules/user";
